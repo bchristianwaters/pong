@@ -44,12 +44,17 @@ function animate(timestamp) {
   requestRedraw();
   requestAnimationFrame(animate);
 }
-document.addEventListener('keydown', (event) => {
-  if (event.which == 40) {
-    if (PlayerY < 520) {PlayerY = PlayerY + 5;}
-  }else if (event.which == 38 && PlayerY > 0) {
-    PlayerY -= 5;
-  }
+var map = {};
+onkeydown = onkeyup = function(e){
+    e = e || event; // to deal with IE
+    map[e.keyCode] = e.type == 'keydown';
+    if(map[38] ^ map[40]){
+      if (map[40]) {
+        if (PlayerY < 520) {PlayerY = PlayerY + 5;}
+      }else if (map[38] && PlayerY > 0) {
+        PlayerY -= 5;
+      }
+    }
+}
 
-});
 window.requestAnimationFrame(animate);

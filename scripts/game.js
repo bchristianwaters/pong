@@ -2,6 +2,10 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext("2d");
 context.fillStyle = 'white';
 context.strokeStyle = "white";
+var PlayerY = 260;
+var ComputerY = 260;
+var BallX = 300;
+var BallY = 300;
 function Player(y){
   context.fillRect(570, y, 20, 80);
 }
@@ -20,7 +24,32 @@ function Ball(x, y){
   context.arc(x, y, 10, 0, 2 * Math.PI, false);
   context.fill();
 }
-MidLine();
-Player(260);
-Computer(260);
-Ball(300, 300)
+function redraw() {
+  drawPending = false;
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  MidLine();
+  Player(PlayerY);
+  Computer(ComputerY);
+  Ball(BallX, BallY)
+}
+
+var drawPending = false;
+function requestRedraw() {
+  if (!drawPending) {
+    drawPending = true;
+    requestAnimationFrame(redraw);
+  }
+}
+function animate(timestamp) {
+  requestRedraw();
+  requestAnimationFrame(animate);
+}
+document.addEventListener('keydown', (event) => {
+  if (event.which == 40) {
+    if (PlayerY < 520) {PlayerY = PlayerY + 5;}
+  }else if (event.which == 38 && PlayerY > 0) {
+    PlayerY -= 5;
+  }
+
+});
+window.requestAnimationFrame(animate);

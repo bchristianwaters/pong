@@ -9,7 +9,6 @@ function Ball(x, y, player, cpu){
     context.fillRect(this.x, this.y, 15, 15);
   }
   this.move = function(direction) {
-    // this.x = Math.min(560, Math.max(0, this.vx + this.x))
     this.y = this.vy + this.y;
     if (this.y > 585) {
       this.y = 1170 - this.y;
@@ -21,6 +20,12 @@ function Ball(x, y, player, cpu){
     this.x = this.vx + this.x;
     if (this.x > 555 && this.x < 565) {
       if (player.y-this.y > -80 && player.y-this.y < 15) {
+        if (player.y-this.y > 0){
+          this.vy -= 2;
+        }
+        if (player.y-this.y < -65) {
+          this.vy += 2;
+        }
         this.x = 1110 - this.x;
         this.vx = - this.vx;
       }

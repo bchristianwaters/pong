@@ -8,17 +8,10 @@ var p1 = new Player(260);
 var cpu = new Computer(260);
 var ball = new Ball(300, 300, p1, cpu);
 
-function MidLine(){
-  for (var x = 0.5; x < 600; x += 20) {
-    context.moveTo(300, x);
-    context.lineTo(300, x+10);
-    context.stroke();
-  }
-}
 function redraw() {
   drawPending = false;
   context.clearRect(0, 0, canvas.width, canvas.height);
-  // MidLine();
+  cpu.move(ball);
   cpu.render();
   if(map[38] ^ map[40]){
     map[40] ? p1.move(1) : p1.move(-1)
@@ -26,6 +19,9 @@ function redraw() {
   p1.render();
   ball.move();
   ball.render();
+  if (ball.x > 700 || ball.x < -100) {
+    ball = new Ball(300, 300, p1, cpu);
+  }
 }
 
 var drawPending = false;

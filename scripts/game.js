@@ -5,11 +5,9 @@ context.strokeStyle = "white";
 var ComputerY = 260;
 
 var p1 = new Player(260);
-var ball = new Ball(300, 300);
+var cpu = new Computer(260);
+var ball = new Ball(300, 300, p1, cpu);
 
-function Computer(y){
-  context.fillRect(10, y, 20, 80);
-}
 function MidLine(){
   for (var x = 0.5; x < 600; x += 20) {
     context.moveTo(300, x);
@@ -20,9 +18,13 @@ function MidLine(){
 function redraw() {
   drawPending = false;
   context.clearRect(0, 0, canvas.width, canvas.height);
-  MidLine();
-  Computer(ComputerY);
+  // MidLine();
+  cpu.render();
+  if(map[38] ^ map[40]){
+    map[40] ? p1.move(1) : p1.move(-1)
+  }
   p1.render();
+  ball.move();
   ball.render();
 }
 
@@ -41,11 +43,7 @@ var map = {};
 onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
     map[e.keyCode] = e.type == 'keydown';
-    if(map[38] ^ map[40]){
-      map[40] ? p1.move(1) : p1.move(-1)
-    }
     p1.render();
-    requestRedraw();
 }
 
 window.requestAnimationFrame(animate);

@@ -23,12 +23,24 @@ function redraw() {
   ball.render();
   if (ball.x > 700) {
     cpuScore++
-    document.getElementById("cpuScore").innerHTML = "CPU Score: "+cpuScore.toString();
-    ball = new Ball(300, 300, p1, cpu);
+    if (cpuScore > 10) {
+      document.getElementById("gameOver").innerHTML = "You lost. Refresh to play again.";
+      document.getElementById("myCanvas").style.display="none";
+      document.getElementById("cpuScore").innerHTML = "CPU Score: 11";
+    } else {
+      ball = new Ball(300, 300, p1, cpu);
+      document.getElementById("cpuScore").innerHTML = "CPU Score: "+cpuScore.toString();
+    }
   } else if (ball.x < -100) {
     playerScore++
-    document.getElementById("playerScore").innerHTML = "Your Score: "+playerScore.toString();
-    ball = new Ball(300, 300, p1, cpu);
+    if (playerScore > 10) {
+      document.getElementById("gameOver").innerHTML = "You won. Refresh to play again.";
+      document.getElementById("myCanvas").style.display="none";
+      document.getElementById("playerScore").innerHTML = "Your Score: 11";
+    } else {
+      ball = new Ball(300, 300, p1, cpu);
+      document.getElementById("playerScore").innerHTML = "Your Score: "+playerScore.toString();
+    }
   }
 }
 
@@ -36,7 +48,7 @@ var drawPending = false;
 function requestRedraw() {
   if (!drawPending) {
     drawPending = true;
-    requestAnimationFrame(redraw);
+    requestAnimationFrame(redraw) ;
   }
 }
 function animate(timestamp) {

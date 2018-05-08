@@ -18,3 +18,11 @@ canvas {
   left: 100px;
   top: 0px;
 }
+#gameOver {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  width: 600px;
+  height: 600px;
+  background-color: white;
+}

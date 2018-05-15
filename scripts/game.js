@@ -10,6 +10,13 @@ var ball = new Ball(300, 300, p1, cpu);
 var playerScore = 0;
 var cpuScore = 0;
 
+var map = {};
+onkeydown = onkeyup = function(e){
+    e = e || event; // to deal with IE
+    map[e.keyCode] = e.type == 'keydown';
+    p1.render();
+}
+
 function redraw() {
   drawPending = false;
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,12 +61,6 @@ function requestRedraw() {
 function animate(timestamp) {
   requestRedraw();
   requestAnimationFrame(animate);
-}
-var map = {};
-onkeydown = onkeyup = function(e){
-    e = e || event; // to deal with IE
-    map[e.keyCode] = e.type == 'keydown';
-    p1.render();
 }
 
 window.requestAnimationFrame(animate);

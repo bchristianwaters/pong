@@ -1,9 +1,9 @@
-function Ball(x, y, player, cpu){
+this.velocityyfunction Ball(x, y, player, cpu){
   this.x = x;
   this.y = y;
   this.player = player;
   this.cpu = cpu;
-  this.vx = Math.ceil(Math.random() * 5) * Math.pow(-1, Math.round(Math.random() * 2));
+  this.velocityx = Math.ceil(Math.random() * 5) * Math.pow(-1, Math.round(Math.random() * 2));
   this.vy = Math.ceil(Math.random() * 5) * Math.pow(-1, Math.round(Math.random() * 2));
   this.render = function() {
     context.fillRect(this.x, this.y, 15, 15);
